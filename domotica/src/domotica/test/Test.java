@@ -4,6 +4,7 @@ import java.util.*;
 
 import domotica.model.*;
 import domotica.view.*;
+import domotica.command.*;
 
 public class Test {
 
@@ -63,6 +64,18 @@ public class Test {
 
 	public static void main(String[] args) throws DomoticaException {
 		House house = new House("house");
+
+		// Maak de commando's aan om de deuren te sleuten en te openen en geef een random kamer mee als parameter
+		Command closeDoors = new CommandSetAllDoorsClosed(house.getBathroom());
+		Command openDoors = new CommandSetAllDoorsOpen(house.getBathroom());
+
+		// Switch object aanmaken om commando's mee uit te voeren
+		Switch mySwitch = new Switch();
+
+		// Uitvoeren van de commando's. door closed? veldje bij de kamer zal op false staan want de deuren zijn open
+		mySwitch.storeAndExecute(closeDoors);
+		mySwitch.storeAndExecute(openDoors);
+
 		new HouseView(house);
 		for (int i = 0; i < 100; i++) {
 			round(house);

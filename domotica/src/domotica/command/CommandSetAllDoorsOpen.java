@@ -14,7 +14,12 @@ public class CommandSetAllDoorsOpen implements Command{
         this.room = room;
     }
 
-    public void execute() throws ElectricityException {
-        room.setDoorsClosed(false);
+    @Override
+    public void execute(){
+        try {
+            room.setDoorsClosed(false);
+        } catch (ElectricityException e) {
+            e.printStackTrace();
+        }
     }
 }
